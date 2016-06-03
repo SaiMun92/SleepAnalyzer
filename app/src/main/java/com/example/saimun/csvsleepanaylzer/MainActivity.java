@@ -44,14 +44,23 @@ public class MainActivity extends AppCompatActivity {
 
             CSVReader reader = new CSVReader(csvStreamReader);
             String [] nextLine;
-            ArrayList<Character> HexStr = new ArrayList<>();
 
             while ((nextLine = reader.readNext()) != null) {
                 // nextLine[] is an array of values from the line
                 String [] sleepData = nextLine[1].split(";");
+                String [] HexStr1 = new String[2];
+                String [] HexStr2 = new String[2];
+                String [] HexStr3 = new String[2];
+                String [] HexStr4 = new String[2];
+                String [] HexStr5 = new String[2];
+
 
                 for (int i=0; i< sleepData.length; i++ ) {
-                    System.out.println("LocalId: " + nextLine[0] + " sleepData: " +  sleepData[i].substring(14));
+                    System.out.println("LocalId: " + nextLine[0] + " sleepData: " +  sleepData[i].substring(14,16));
+                    HexStr1[i] = sleepData[i].substring(14,16);
+                    HexStr2[i] = sleepData[i].substring(16,18);
+
+                    //System.out.println("LocalId: " + nextLine[0] + " sleepData: " +  sleepData[i].substring(17,19));
 //                    for (int j=0; j<16; j++) {
 //                        HexStr.add(sleepData[i].substring(14).charAt(j));
 //                    }
