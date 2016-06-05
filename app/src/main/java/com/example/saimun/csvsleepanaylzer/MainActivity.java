@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public int count131_140 = 0;
     public int count141_150 = 0;
 
+    public int counter = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -65,13 +67,52 @@ public class MainActivity extends AppCompatActivity {
                 // nextLine[] is an array of values from the line
                 String [] sleepData = nextLine[1].split(";");
 
-                for (int i=0; i< sleepData.length;
-                    int uniqueId = Integer.parseInt(nextLine[0]);
-                    i++ ) {
-
+                for (int i=0; i< sleepData.length;i++ ) {
                     int[] data = hexStringToInt(sleepData[i].substring(14));
                     //System.out.println("Local Id: " + nextLine[0] + " sleepData: " +  Arrays.toString(data));
-                    textElement.append("LocalId: " + nextLine[0] + " sleepData: " + Arrays.toString(data));
+                    //The append is for show only
+                    textElement.append("User Id: " + nextLine[0] + " sleepData: " + Arrays.toString(data));
+
+                    //Store the data into an array
+                    for (int j=0; j<data.length;j++) {
+                        if (data[j]>0 && data[j]<=10 && data[j]==0) {
+                            count1_10 +=1;
+                        }
+                        else if (data[j]>10 && data[j]<=20) {
+                            count11_20 +=1;
+                        }
+                        else if (data[j]>20 && data[j]<=30) {
+                            count21_30 +=1;
+                        }
+                        else if (data[j]>30 && data[j]<40) {
+                            count31_40 +=1;
+                        }
+                        else if (data[j]>40 && data[j]<=50) {
+                            count41_50 +=1;
+                        }
+                        else if (data[j]>50 && data[j]<60) {
+                            count51_60 +=1;
+                        }
+                        else if (data[j]>60 && data[j]<70) {
+                            count61_70 +=1;
+                        }
+                        else if (data[j]>70 && data[j]<80) {
+                            count71_80 +=1;
+                        }
+                        else if (data[j]>80 && data[j]<90) {
+                            count81_90 +=1;
+                        }
+                        else if (data[j]>90 && data[j]<100) {
+                            count91_100 +=1;
+                        }
+                    }
+
+                }
+                counter++;
+
+                if (counter == 5) {
+                    //Retreive the data and divide by 5 cos there are 5 sleeps per user.
+                    //Reset all values to 0 and save all the data into an arrayList
                 }
             }
         } catch (IOException e) {
