@@ -5,6 +5,11 @@ import android.os.Bundle;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import android.text.method.ScrollingMovementMethod;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +17,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import java.nio.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     public int count71_80 = 0;
     public int count81_90 = 0;
     public int count91_100 = 0;
-
-    public boolean deepStart;
-    public boolean countStop;
+    public int count101_110 = 0;
+    public int count111_120 = 0;
+    public int count121_130 = 0;
+    public int count131_140 = 0;
+    public int count141_150 = 0;
 
 
     @Override
@@ -37,7 +44,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        processSleepData();
+    }
+
+
+    public void processSleepData() {
+
         try {
+            TextView textElement = (TextView) findViewById(R.id.text);
+            textElement.setMovementMethod(new ScrollingMovementMethod());
+
             InputStreamReader csvStreamReader = new InputStreamReader(
                     MainActivity.this.getAssets().open(
                             "ParsedData.csv"));
@@ -48,32 +64,42 @@ public class MainActivity extends AppCompatActivity {
             while ((nextLine = reader.readNext()) != null) {
                 // nextLine[] is an array of values from the line
                 String [] sleepData = nextLine[1].split(";");
-                String [] HexStr1 = new String[2];
-                String [] HexStr2 = new String[2];
-                String [] HexStr3 = new String[2];
-                String [] HexStr4 = new String[2];
-                String [] HexStr5 = new String[2];
 
+                for (int i=0; i< sleepData.length;
+                    int uniqueId = Integer.parseInt(nextLine[0]);
+                    i++ ) {
 
-                for (int i=0; i< sleepData.length; i++ ) {
-                    System.out.println("LocalId: " + nextLine[0] + " sleepData: " +  sleepData[i].substring(14,16));
-                    HexStr1[i] = sleepData[i].substring(14,16);
-                    HexStr2[i] = sleepData[i].substring(16,18);
-
-                    //System.out.println("LocalId: " + nextLine[0] + " sleepData: " +  sleepData[i].substring(17,19));
-//                    for (int j=0; j<16; j++) {
-//                        HexStr.add(sleepData[i].substring(14).charAt(j));
-//                    }
-//                    System.out.println("HexStr: " + HexStr);
+                    int[] data = hexStringToInt(sleepData[i].substring(14));
+                    //System.out.println("Local Id: " + nextLine[0] + " sleepData: " +  Arrays.toString(data));
+                    textElement.append("LocalId: " + nextLine[0] + " sleepData: " + Arrays.toString(data));
                 }
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        //sleepFunction();
+    public static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)   //"<<" is the binary left shift operator
+                    + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
+    }
+
+    public static int[] hexStringToInt(String s) {
+        int len = s.length();
+        int stringCounter = 0;
+
+        int[] data = new int[len/2];
+        for (int i=0; i < len; i +=2) {
+            String HexStr = s.substring(stringCounter, stringCounter + 2);
+            stringCounter += 2;
+            data[i / 2] = Integer.parseInt(HexStr, 16);
+        }
+        return data;
     }
 
 
