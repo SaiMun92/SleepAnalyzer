@@ -152,9 +152,9 @@ public class MainActivity extends AppCompatActivity {
                     UserData.get(UserCounter).add(count131_140/5);
                     UserData.get(UserCounter).add(count141_150/5);
 
-                    //Testing purposes only
-                    textElement.append("Storing Arraylist data: " + UserData.get(UserCounter).get(0) + "\n" +
-                            "first Data from the user: " + UserData.get(UserCounter).get(1) + "\n");
+//                    //Testing purposes only
+//                    textElement.append("Storing Arraylist data: " + UserData.get(UserCounter).get(0) + "\n" +
+//                            "first Data from the user: " + UserData.get(UserCounter).get(1) + "\n");
 
                     textElement.append(
                             "User_Id: " + nextLine[0] + "\n" +

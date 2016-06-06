@@ -31,6 +31,6 @@
         android:textSize="17sp"
         android:textStyle="bold"
         android:layout_marginLeft="5dp"
-        android:maxLines = "20"
+        android:maxLines = "30"
         android:scrollbars = "vertical" />
 </LinearLayout>
