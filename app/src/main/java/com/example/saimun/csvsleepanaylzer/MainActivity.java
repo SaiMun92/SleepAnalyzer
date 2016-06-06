@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public int count141_150 = 0;
 
     public int counter = 1;
+    public int UserCounter = 0;
+
+    List<List<Integer>> UserData = new ArrayList<>(20);
 
 
     @Override
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
             InputStreamReader csvStreamReader = new InputStreamReader(
                     MainActivity.this.getAssets().open(
-                            "ParsedData.csv"));
+                            "testingFile.csv"));
 
             CSVReader reader = new CSVReader(csvStreamReader);
             String [] nextLine;
@@ -71,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
                     int[] data = hexStringToInt(sleepData[i].substring(14));
                     //System.out.println("Local Id: " + nextLine[0] + " sleepData: " +  Arrays.toString(data));
                     //The append is for show only
-                    textElement.append("User Id: " + nextLine[0] + " sleepData: " + Arrays.toString(data));
+                    //textElement.append("User Id: " + nextLine[0] + " sleepData: " + Arrays.toString(data));
 
-                    //Store the data into an array
+                    //Store the data into a counter
                     for (int j=0; j<data.length;j++) {
-                        if (data[j]>0 && data[j]<=10 && data[j]==0) {
+                        if (data[j]>=0 && data[j]<=10) {
                             count1_10 +=1;
                         }
                         else if (data[j]>10 && data[j]<=20) {
@@ -105,6 +108,21 @@ public class MainActivity extends AppCompatActivity {
                         else if (data[j]>90 && data[j]<100) {
                             count91_100 +=1;
                         }
+                        else if (data[j]>100 && data[j]<=110) {
+                            count101_110 +=1;
+                        }
+                        else if (data[j]>110 && data[j]<=120) {
+                            count111_120 +=1;
+                        }
+                        else if (data[j]>120 && data[j]<=130) {
+                            count121_130 +=1;
+                        }
+                        else if (data[j]>130 && data[j]<=140) {
+                            count131_140 +=1;
+                        }
+                        else if (data[j]>140) {
+                            count141_150 +=1;
+                        }
                     }
 
                 }
@@ -113,8 +131,70 @@ public class MainActivity extends AppCompatActivity {
                 if (counter == 5) {
                     //Retreive the data and divide by 5 cos there are 5 sleeps per user.
                     //Reset all values to 0 and save all the data into an arrayList
+                    textElement.append(
+                            "User_Id: " + nextLine[0] + "\n" +
+                            "Count1_10: " + count1_10/5 + "\n" +
+                            "Count11_20: " + count11_20/5 + "\n" +
+                            "Count21_30: " + count21_30/5 + "\n" +
+                            "Count31_40: " + count31_40/5 + "\n" +
+                            "Count41_50: " + count41_50/5 + "\n" +
+                            "Count51_60: " + count51_60/5 + "\n" +
+                            "Count61_70: " + count61_70/5 + "\n" +
+                            "Count71_80: " + count71_80/5 + "\n" +
+                            "Count81_90::" + count81_90/5 + "\n" +
+                            "Count91_100: " + count91_100/5 + "\n" +
+                            "Count101_110: " + count101_110/5 + "\n" +
+                            "Count111_120: " + count111_120/5 + "\n" +
+                            "Count121_130: " + count121_130/5 + "\n" +
+                            "Count131_140: " + count131_140/5 + "\n" +
+                            "Count141_150: " + count141_150/5 + "\n\n");
+
+                    //Initialising all columns of the 2d array
+                    for(int i = 0; i < 20; i++)  {
+                        UserData.add(new ArrayList<Integer>());
+                    }
+
+                    UserData.get(UserCounter).add(Integer.parseInt(nextLine[0]));
+                    UserData.get(UserCounter).add(count1_10/5);
+                    UserData.get(UserCounter).add(count11_20/5);
+                    UserData.get(UserCounter).add(count21_30/5);
+                    UserData.get(UserCounter).add(count31_40/5);
+                    UserData.get(UserCounter).add(count41_50/5);
+                    UserData.get(UserCounter).add(count51_60/5);
+                    UserData.get(UserCounter).add(count61_70/5);
+                    UserData.get(UserCounter).add(count71_80/5);
+                    UserData.get(UserCounter).add(count81_90/5);
+                    UserData.get(UserCounter).add(count91_100/5);
+                    UserData.get(UserCounter).add(count101_110/5);
+                    UserData.get(UserCounter).add(count111_120/5);
+                    UserData.get(UserCounter).add(count121_130/5);
+                    UserData.get(UserCounter).add(count131_140/5);
+                    UserData.get(UserCounter).add(count141_150/5);
+                    
+                    //UserCounter is the counter for which user
+                    UserCounter +=1;
+
+                    //Counter is for every 5 sleep data
+                    //Reset all counters
+                    counter = 1;
+                    count1_10 = 0;
+                    count11_20 = 0;
+                    count21_30 = 0;
+                    count31_40 = 0;
+                    count41_50 = 0;
+                    count51_60 = 0;
+                    count61_70 = 0;
+                    count71_80 = 0;
+                    count81_90 = 0;
+                    count91_100 = 0;
+                    count101_110 = 0;
+                    count111_120 = 0;
+                    count121_130 = 0;
+                    count131_140 = 0;
+                    count141_150 = 0;
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
